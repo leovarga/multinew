@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta HTTP-EQUIV="REFRESH" CONTENT="1;URL=/ru/">
+		<!--=include ../include/counter.html-->
+    	<script>
+    		var lang = (window.localStorage && localStorage.getItem('lang')) || navigator.language || navigator.browserLanguage;
+    		if(/ru/.test(lang))
+    			window.location.href = '/ru/';
+/*    		else if(/mo|ro/.test(lang))
+    			window.location.href = '/ro/';
+    		else if(/zh/.test(lang))
+    			window.location.href = '/zh/';  */
+    	    else                                
+    	        window.location.href = '/ru/';	
+    	</script>
+    </head>
+    <body>
+    	If the page is not reloaded automatically, please follow the <a href="/ru/">link</a>.
+    </body>
+</html>
