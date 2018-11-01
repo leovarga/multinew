@@ -12,7 +12,7 @@
 		<!--=include include/counter.html-->
         <link rel="icon" type='image/png' href="https://www.primeinvestments.co.za/images/investmentPlanIcon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="/s/info.js?v=5"></script>
+        <script type="text/javascript" src="/s/info.js?v=6"></script>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/vendors.css"></link>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/plp.css"></link>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/nodes.css"></link>
@@ -1243,7 +1243,7 @@
                 }
 
                 .node63 a {
-                    color: rgb(219, 254, 189)
+                    color: rgb(64, 139, 0)
                 }
 
                 .node70 > .wrapper1 {
@@ -4375,8 +4375,11 @@
                     max-width: 767px;
                 }
 
-
-
+.howisthat {
+    font-size: 18px;
+    font-family: "Raleway Medium";
+    color: rgb(17, 118, 0);
+}
 
 .lds-spinner {
   color: official;
@@ -4761,7 +4764,42 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="node node24 widget widget-text">
+                                <style>
+                                	.nodeStatus {
+                                		text-align: center;
+                                	}
+
+                                	#startTime {
+                                		font-weight: bold;
+                                		font-size: 20px;
+                                	}
+
+                                	#statusPending {
+                                		color: #00c0bb;
+                                		font-weight: bold;
+                                		font-size: 18px;
+                                	}
+
+                                	#statusActive {
+                                		display: none;
+                                		font-weight: bold;
+                                		font-size: 18px;
+                                		color: #f4acac;
+                                	}
+
+                                	#prizeTo {
+                                	}
+
+                                	#prizeIn {
+                                	}
+                                	
+                                </style>
+                                <div class="node nodeStatus widget widget-text">
+                                	<p>Старт: <span id="startTime">???</span>
+                                	<p>Cтатус: <span id="statusPending">Ожидание старта</span><span id="statusActive">ЖАРА!!!</span>
+                                	<p>Кандидат на приз: <span id="prizeTo">???</span> через <span id="prizeIn">???</span>
+                                </div>
+                                <!--<div class="node node24 widget widget-text">
                                     <div class="wrapper1">
                                         <div class="wrapper2">
                                             <div class="xs-scale-60 sm-scale-80">
@@ -4773,7 +4811,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="node node25 widget widget-button">
                                     <div class="wrapper1">
                                         <div class="wrapper2">
@@ -4810,7 +4848,7 @@
                                         <div class="wrapper2">
                                             <div class="grid valign-middle paddings-20px xs-wrap">
                                                 <div class="gridwrap">
-                                                    <div class="col" style="width: 51.8261%;">
+                                                    <div class="col" style="width: 50%;">
                                                         <div class="cont">
                                                             <div class="node node33 widget widget-image wow bounceInLeft">
                                                                 <div class="wrapper1">
@@ -4826,34 +4864,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col" style="width: 48.1739%;">
+                                                    <div class="col" style="width: 50%;">
                                                         <div class="cont">
                                                             <div class="node node34 widget widget-text wow bounceInRight">
                                                                 <div class="wrapper1">
                                                                     <div class="wrapper2">
                                                                         <div class="xs-scale-70 sm-scale-70">
-                                                                            <div class="xs-force-center textable">
-                                                                                <p class="shadowglow">
-                                                                                    <span style="font-size: 18px;">
-                                                                                        <span style="font-family: &quot;Raleway Medium&quot;;">
-                                                                                            <span style="color: rgb(17, 118, 0);">{{smarts.p1 | translate }}</span>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                </p>
-                                                                                <p class="shadowglow">
-                                                                                    <span style="font-size: 18px;">
-                                                                                        <span style="font-family: &quot;Raleway Medium&quot;;">
-                                                                                            <span style="color: rgb(17, 118, 0);">{{smarts.p2 | translate }}</span>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                </p>
-                                                                                <p class="shadowglow">
-                                                                                    <span style="font-size: 18px;">
-                                                                                        <span style="font-family: &quot;Raleway Medium&quot;;">
-                                                                                            <span style="color: rgb(17, 118, 0);">{{smarts.p3 | translate }}</span>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                </p>
+                                                                            <div class="xs-force-center textable howisthat shadowglow">
+                                                                                <p>{{smarts.p1 | translate }}
+                                                                                <p>{{smarts.p2 | translate }}
+                                                                                <p>{{smarts.p3 | translate }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -4871,7 +4891,7 @@
                                         <div class="wrapper2">
                                             <div class="macros-button">
                                                 <div class="btn-out center xs-none">
-                                                    <a class="btn-inner" href="https://etherscan.io/address/0x89E88661f0582f0f0a07B63D33ba8EDD3E88E6e5" target="_blank">
+                                                    <a class="btn-inner" href="https://etherscan.io/address/0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a" target="_blank">
                                                         <button class="btn font-text" id="uid13" data-id="" data-action="link" data-ym_goal="" data-ga_category="" data-ga_action="" need_hover="true">
                                                             <span class="text">{{ button.see_contract | translate }}</span>
                                                         </button>
@@ -5156,8 +5176,10 @@
                                         <div class="wrapper2" style="width: fit-content; margin: 0 auto; font-family: Blogger Sans; color: rgba( 98, 171, 4, 1); font-size: 30px;">
                                         	<ul>
                                         		<li>{{ distribution.payout | translate }}</big></li>
+                                        		<li>{{ distribution.prize | translate }}</li>
                                         		<li>{{ distribution.ads | translate }}</li>
                                         		<li>{{ distribution.service | translate }}</li>
+                                        		<li>{{ distribution.first | translate }}</li>
                                         		<li>{{ distribution.referal | translate }}</li>
                                         	</ul>
                                         </div>
@@ -5338,7 +5360,7 @@
                                                                                                                 <div class="">
                                                                                                                     <div class="xs-force-center textable">
                                                                                                                         <h1 style="text-align: center;">
-                                                                                                                            <span style="font-size: 16px;">0x89E88661f0582f0f0a07B63D33ba8EDD3E88E6e5</span>
+                                                                                                                            <span style="font-size: 16px;">0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a</span>
                                                                                                                         </h1>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -6277,7 +6299,7 @@
             });
 
             window.multiplier = getContractInstance();
-
+			updateContractInfo();
         </script>
     </body>
 </html>
