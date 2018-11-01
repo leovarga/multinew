@@ -322,8 +322,9 @@ function updateDividents(investmentInfo, addr){
 }
 
 async function updateContractInfo(){
-	var stage = await window.multiplier.methods.stage().call();
-	var stageByTime = await window.multiplier.methods.getCurrentStageByTime().call();
+	let stagePs = window.multiplier.methods.stage().call();
+	let stageByTimePs = window.multiplier.methods.getCurrentStageByTime().call();
+	let prizePs = window.multiplier.methods.prizeAmount().call();
 	var candidate = {};
 	try{
 		candidate = await window.multiplier.methods.getCurrentCandidateForPrize().call();
@@ -331,8 +332,9 @@ async function updateContractInfo(){
 		console.log('No current candidate: ' + e.message);
 	}
 
+	let [stage, stageByTime, prize] = await Promise.all([stagePs, stageByTimePs, prizePs]);
 	let startTime = await window.multiplier.methods.getStageStartTime(stage).call();
-	updateContractInfo1(stage, stageByTime, candidate, startTime);
+	updateContractInfo1(stage, stageByTime, candidate, startTime, prize);
 }
 
 function n2(str){
@@ -342,8 +344,9 @@ function n2(str){
 	return str;
 }
 
-function updateContractInfo1(stage, stageByTime, candidate, startTime){
+function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
 		var status, start, cand, candTime;
+		
 		if(stage == stageByTime){
 			status = true;
 		}else{
@@ -361,21 +364,24 @@ function updateContractInfo1(stage, stageByTime, candidate, startTime){
 
 		console.log(status, start, cand);
 
+		var left = Math.round(Math.max(startTime*1000 - (+new Date() - (adjustTime.correction||0)), 0)/1000);
+		left = n2(Math.floor(left/3600)) + ':' + n2(Math.floor((left%3600)/60)) + ':' + n2(left%60);
+
+		var prize_fmt = ((prize || 0)/10**18).toFixed(8).replace(/(\.[^0]*)0+$/, '$1').replace(/\.$/, '');
+
 		document.getElementById('startTime').innerHTML = start;
+		document.getElementById('startTimeLeft').innerHTML = left;
 		document.getElementById('statusPending').style.display = status ? 'none' : 'inline';
 		document.getElementById('statusActive').style.display = !status ? 'none' : 'inline';
+		document.getElementById('prize').innerHTML = prize_fmt;
 		document.getElementById('prizeTo').innerHTML = cand;
 		document.getElementById('prizeIn').innerHTML = candTime;
 }
 
 function calcInvestment(resetTime){
-	if(!updateDividentsTimer.startTime)
-		updateDividentsTimer.startTime = +new Date();
-
 	var inp = document.getElementById('inputInvestments');
 	var text = inp.value.trim().replace(/,/g, '.');
 	if(/^0x[\da-f]*$/i.test(text)){
-		updateDividentsTimer.timeDiff = Math.max(window.investmentInfo.last_time - (+new Date()), 0);
 		//Address
 		var addr = findAddress(text);
 		var info;
@@ -434,6 +440,19 @@ function getContractInstance(){
 	var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"getCurrentStageByTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentReceiverIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositorMultiplier","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"FATHER_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_INVESTMENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"prizeAmount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PRIZE_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDeposits","outputs":[{"name":"idxs","type":"uint256[]"},{"name":"deposits","type":"uint128[]"},{"name":"expects","type":"uint128[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MIN_INVESTMENT_FOR_PRIZE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"idx","type":"uint256"}],"name":"getDeposit","outputs":[{"name":"depositor","type":"address"},{"name":"deposit","type":"uint256"},{"name":"expect","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TECH_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"depositsMade","outputs":[{"name":"stage","type":"int128"},{"name":"count","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getQueueLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"stage","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PROMO_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositsCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_IDLE_TIME","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"lastDepositInfo","outputs":[{"name":"index","type":"uint128"},{"name":"time","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentCandidateForPrize","outputs":[{"name":"addr","type":"address"},{"name":"timeLeft","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_stage","type":"int256"}],"name":"getStageStartTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"pure","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]');
 	var address = '0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a';
 	var contractInstance = new web3.eth.Contract(abi, address);
+	contractInstance.web3 = web3;
 
 	return contractInstance;
+}
+
+function adjustTime(){
+	adjustTime.correction = 0;
+
+	var beforeAsk = +new Date();
+    fetch('https://worldclockapi.com/api/json/utc/now?_=' + (+new Date())).then(response => response.json()).then(tm => {
+    	var time = tm.currentFileTime / 10000 - 11644473600000;
+    	var diff = (time-(+new Date() + beforeAsk)/2);
+    	console.log("Difference: " + diff);
+    	adjustTime.correction = Math.round(diff);
+    });
 }

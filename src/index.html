@@ -4775,7 +4775,7 @@
                                 	}
 
                                 	#statusPending {
-                                		color: #00c0bb;
+                                		color: #90fffc;
                                 		font-weight: bold;
                                 		font-size: 18px;
                                 	}
@@ -4787,6 +4787,16 @@
                                 		color: #f4acac;
                                 	}
 
+                                	#prize {
+                                		font-size: 20px;
+                                		font-weight: bold;
+
+                                	}
+
+                                    #startTimeLeft {
+                                    	font-size: 20px;
+                                    }
+
                                 	#prizeTo {
                                 	}
 
@@ -4796,8 +4806,8 @@
                                 </style>
                                 <div class="node nodeStatus widget widget-text">
                                 	<p>Старт: <span id="startTime">???</span>
-                                	<p>Cтатус: <span id="statusPending">Ожидание старта</span><span id="statusActive">ЖАРА!!!</span>
-                                	<p>Кандидат на приз: <span id="prizeTo">???</span> через <span id="prizeIn">???</span>
+                                	<p>Cтатус: <span id="statusPending">До старта <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">ЖАРА!!!</span>
+                                	<p>Кандидат на приз <span id="prize">0</span> ETH: <span id="prizeTo">???</span> через <span id="prizeIn">???</span>
                                 </div>
                                 <!--<div class="node node24 widget widget-text">
                                     <div class="wrapper1">
@@ -6272,7 +6282,7 @@
         <script type="text/javascript" src="//s.filesonload.ru/assets/3.3/nodes.js"></script>
         <script type="text/javascript" src="//s.filesonload.ru/assets/3.3/swiper.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="//cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
+        <script src="//cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
 
         <script>
         	var g_initialInfo =
@@ -6297,6 +6307,8 @@
 
             	calcInvestment();
             });
+
+            adjustTime();
 
             window.multiplier = getContractInstance();
 			updateContractInfo();
