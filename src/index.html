@@ -4802,12 +4802,40 @@
 
                                 	#prizeIn {
                                 	}
+
+                                	#histPrizeContainer {
+                                		padding: 2px;
+                                	}
+
+                                	#curPrizeInfo {
+                                		display: none;
+                                	}
+
+                                	#histPrize {
+                                		font-size: 18px;
+                                		display: none;
+                                	}
+
+                                	#histPrizeTime {
+                                		font-size: 14px;
+                                		color: lightgray;
+                                	}
+
+                                	#histPrizeSum {
+                                		font-size: 20px;
+                                		font-weight: bold;
+                                	}
+
+                                	#histPrizeAddr {
+                                		font-size: 18px;
+                                	}
                                 	
                                 </style>
                                 <div class="node nodeStatus widget widget-text">
                                 	<p>Старт: <span id="startTime">???</span>
                                 	<p>Cтатус: <span id="statusPending">До старта <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">ЖАРА!!!</span>
-                                	<p>Кандидат на приз <span id="prize">0</span> ETH: <span id="prizeTo">???</span> через <span id="prizeIn">???</span>
+                                	<p id="curPrizeInfo">Кандидат на приз <span id="prize">0</span> ETH: <span id="prizeTo">???</span> через <span id="prizeIn">???</span></p>
+                                	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: приз <span id="histPrizeSum">0</span> ETH получен <span id="histPrizeAddr">???</span></p></div>
                                 </div>
                                 <!--<div class="node node24 widget widget-text">
                                     <div class="wrapper1">
@@ -4901,7 +4929,7 @@
                                         <div class="wrapper2">
                                             <div class="macros-button">
                                                 <div class="btn-out center xs-none">
-                                                    <a class="btn-inner" href="https://etherscan.io/address/0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a" target="_blank">
+                                                    <a class="btn-inner" href="https://etherscan.io/address/0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8" target="_blank">
                                                         <button class="btn font-text" id="uid13" data-id="" data-action="link" data-ym_goal="" data-ga_category="" data-ga_action="" need_hover="true">
                                                             <span class="text">{{ button.see_contract | translate }}</span>
                                                         </button>
@@ -5370,7 +5398,7 @@
                                                                                                                 <div class="">
                                                                                                                     <div class="xs-force-center textable">
                                                                                                                         <h1 style="text-align: center;">
-                                                                                                                            <span style="font-size: 16px;">0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a</span>
+                                                                                                                            <span style="font-size: 16px;">0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8</span>
                                                                                                                         </h1>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -6294,14 +6322,7 @@
             getInfo(window.g_initialInfo).then(function(info){
             	window.investmentInfo = info;
 
-            	if(!Number.prototype.toLocaleString){
-            		Number.prototype.toLocaleString = Number.prototype.toString;
-            	}
-
-            	var got = Math.round(info.sum/Math.pow(10, 16))/100;
-            	document.getElementById("info_sum").innerHTML = got.toLocaleString();
-            	document.getElementById("info_sum_usd").innerHTML = Math.round(got*info.rate).toLocaleString();
-            	document.getElementById("info_num").innerHTML = (info.num).toLocaleString();
+            	updateHistoricInfo(info);
 
             	drawChart(info);
 

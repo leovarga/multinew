@@ -5,8 +5,8 @@
 		});
 	var defLastBlock = 0;
 	if(!initialInfo)
-		initialInfo = {address: '0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a', sum: 0, timesum: 0, num: 0, investors: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
-	if(!initialInfo.address) initialInfo.address = '0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a';
+		initialInfo = {address: '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8', sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
+	if(!initialInfo.address) initialInfo.address = '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8';
 
 	var jsonInternalPromise = fetch("https://api.etherscan.io/api?module=account&action=txlistinternal&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlockInner || initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
 		.then(function(response){
@@ -56,6 +56,14 @@
 				info.min = investment;
 			if(investment > info.max)
 				info.max = investment;
+		}else{
+			var prize = {
+				hash: tr.hash,
+				timeStamp: +tr.timeStamp,
+			};
+
+			info.prizes.push(tr.hash);
+			info.prizesMap[tr.hash] = prize;
 		}
 		return info;
 	}
@@ -88,9 +96,18 @@
 						info.lastTimeInner = +tr.timeStamp;
 
 						if(!(+tr.isError)){
+							if(info.prizesMap[tr.hash]){
+								var prize = info.prizesMap[tr.hash];
+								if(tr.from.toLowerCase() === contractAddress &&
+									tr.to.toLowerCase() !== '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8'){
+									prize.sum = +tr.value;
+									prize.addr = tr.to;
+								}
+							}
+
 							if(tr.to.toLowerCase() === contractAddress){
 								info = gatherTxIn(info, tr);
-							}else{
+							}else if(tr.from.toLowerCase() === contractAddress){
 								var inv = info.investors[tr.to];
 								if(inv){
 									inv.got = (inv.got || 0) + (+tr.value);
@@ -300,9 +317,9 @@ function updateDividents(investmentInfo, addr){
 
     updateContractInfo();
 
-	var got = ((investmentInfo.got || 0)/Math.pow(10,18)).toFixed(8).replace(/(\.[^0]*)0+$/, '$1');
-	var gas = ((investmentInfo.gas || 0)/Math.pow(10,18)).toFixed(8);
-	var sum = (investmentInfo.sum/Math.pow(10, 18)).toFixed(8).replace(/(\.[^0]*)0+$/, '$1');
+	var got = fmtEther(investmentInfo.got || 0);
+	var gas = fmtEther(investmentInfo.gas || 0);
+	var sum = fmtEther(investmentInfo.sum);
 	var count_all = (investmentInfo.inv.length);
 	var lastPayout = '&mdash;';
 	if(investmentInfo.gotTime){
@@ -344,39 +361,72 @@ function n2(str){
 	return str;
 }
 
-function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
-		var status, start, cand, candTime;
-		
-		if(stage == stageByTime){
-			status = true;
-		}else{
-			status = false;
-		}
-
-		start = fmtTime(new Date(startTime*1000));
-
-		if(!candidate.addr || /^0x0+$/i.test(candidate.addr)){
-			cand = ' --- '; candTime = '--:--';
-		}else{
-			cand = candidate.addr;
-			candTime = n2(Math.floor(candidate.timeLeft/60)) + ':' + n2(candidate.timeLeft%60);
-		}
-
-		console.log(status, start, cand);
-
-		var left = Math.round(Math.max(startTime*1000 - (+new Date() - (adjustTime.correction||0)), 0)/1000);
-		left = n2(Math.floor(left/3600)) + ':' + n2(Math.floor((left%3600)/60)) + ':' + n2(left%60);
-
-		var prize_fmt = ((prize || 0)/10**18).toFixed(8).replace(/(\.[^0]*)0+$/, '$1').replace(/\.$/, '');
-
-		document.getElementById('startTime').innerHTML = start;
-		document.getElementById('startTimeLeft').innerHTML = left;
-		document.getElementById('statusPending').style.display = status ? 'none' : 'inline';
-		document.getElementById('statusActive').style.display = !status ? 'none' : 'inline';
-		document.getElementById('prize').innerHTML = prize_fmt;
-		document.getElementById('prizeTo').innerHTML = cand;
-		document.getElementById('prizeIn').innerHTML = candTime;
+function fmtEther(val){
+	return (val/10**18).toFixed(8).replace(/(\.[^0]*)0+$/, '$1').replace(/\.$/, '');
 }
+
+function fmtAddress(addr){
+	return addr.replace(/^(0x.{4}).*(.{4})$/, '$1&hellip;$2');
+}
+
+function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
+	var status, start, cand, candTime;
+	
+	if(stage == stageByTime){
+		status = true;
+	}else{
+		status = false;
+	}
+
+	start = fmtTime(new Date(startTime*1000));
+
+	if(!candidate.addr || /^0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8+$/i.test(candidate.addr)){
+		cand = ' --- '; candTime = '--:--';
+	}else{
+		cand = candidate.addr;
+		candTime = n2(Math.floor(candidate.timeLeft/60)) + ':' + n2(candidate.timeLeft%60);
+	}
+
+	console.log(status, start, cand);
+
+	var left = Math.round(Math.max(startTime*1000 - (+new Date() - (adjustTime.correction||0)), 0)/1000);
+	left = n2(Math.floor(left/3600)) + ':' + n2(Math.floor((left%3600)/60)) + ':' + n2(left%60);
+
+	var prize_fmt = fmtEther((prize || 0)*2/3);
+
+	document.getElementById('histPrizeContainer').style.display = status ? 'none' : 'inline';
+	document.getElementById('curPrizeInfo').style.display = !status ? 'none' : 'inline';
+
+	document.getElementById('startTime').innerHTML = start;
+	document.getElementById('startTimeLeft').innerHTML = left;
+	document.getElementById('statusPending').style.display = status ? 'none' : 'inline';
+	document.getElementById('statusActive').style.display = !status ? 'none' : 'inline';
+	document.getElementById('prize').innerHTML = prize_fmt;
+	document.getElementById('prizeTo').innerHTML = fmtAddress(cand);
+	document.getElementById('prizeIn').innerHTML = candTime;
+}
+
+if(!Number.prototype.toLocaleString){
+	Number.prototype.toLocaleString = Number.prototype.toString;
+}
+
+
+function updateHistoricInfo(info){
+	var got = Math.round(info.sum/Math.pow(10, 16))/100;
+	document.getElementById("info_sum").innerHTML = got.toLocaleString();
+	document.getElementById("info_sum_usd").innerHTML = Math.round(got*info.rate).toLocaleString();
+	document.getElementById("info_num").innerHTML = (info.num).toLocaleString();
+
+	document.getElementById("histPrize").style.display = info.prizes.length ? 'block' : 'none';
+	if(info.prizes.length){
+		var prize = info.prizesMap[info.prizes[info.prizes.length-1]];
+		
+		document.getElementById("histPrizeAddr").innerHTML = fmtAddress(prize.addr);
+		document.getElementById("histPrizeTime").innerHTML = fmtTime(new Date(prize.timeStamp*1000));
+		document.getElementById("histPrizeSum").innerHTML = fmtEther(prize.sum);
+	}
+}
+
 
 function calcInvestment(resetTime){
 	var inp = document.getElementById('inputInvestments');
@@ -437,8 +487,8 @@ function onChangeLang(lang){
 
 function getContractInstance(){
 	var web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/metamask"));
-	var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"getCurrentStageByTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentReceiverIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositorMultiplier","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"FATHER_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_INVESTMENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"prizeAmount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PRIZE_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDeposits","outputs":[{"name":"idxs","type":"uint256[]"},{"name":"deposits","type":"uint128[]"},{"name":"expects","type":"uint128[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MIN_INVESTMENT_FOR_PRIZE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"idx","type":"uint256"}],"name":"getDeposit","outputs":[{"name":"depositor","type":"address"},{"name":"deposit","type":"uint256"},{"name":"expect","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TECH_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"depositsMade","outputs":[{"name":"stage","type":"int128"},{"name":"count","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getQueueLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"stage","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PROMO_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositsCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_IDLE_TIME","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"lastDepositInfo","outputs":[{"name":"index","type":"uint128"},{"name":"time","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentCandidateForPrize","outputs":[{"name":"addr","type":"address"},{"name":"timeLeft","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_stage","type":"int256"}],"name":"getStageStartTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"pure","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]');
-	var address = '0x5F8797e606793Af4d76A0AdecF2e1e9879e2811a';
+	var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"currentQueueSize","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentStageByTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentReceiverIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositorMultiplier","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"FATHER_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_INVESTMENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"prizeAmount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PRIZE_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDeposits","outputs":[{"name":"idxs","type":"uint256[]"},{"name":"deposits","type":"uint128[]"},{"name":"expects","type":"uint128[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MIN_INVESTMENT_FOR_PRIZE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"idx","type":"uint256"}],"name":"getDeposit","outputs":[{"name":"depositor","type":"address"},{"name":"deposit","type":"uint256"},{"name":"expect","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TECH_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"depositsMade","outputs":[{"name":"stage","type":"int128"},{"name":"count","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getQueueLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"stage","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PROMO_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositsCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_IDLE_TIME","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"lastDepositInfo","outputs":[{"name":"index","type":"uint128"},{"name":"time","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentCandidateForPrize","outputs":[{"name":"addr","type":"address"},{"name":"timeLeft","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_stage","type":"int256"}],"name":"getStageStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]');
+	var address = '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8';
 	var contractInstance = new web3.eth.Contract(abi, address);
 	contractInstance.web3 = web3;
 
