@@ -116,9 +116,9 @@ faq:
       no one can drive in front of you, all new depositors are added to the end of the queue.
       <p> Important! ALL investments in cryptocurrency are very high risk - you need to remember this! DO NOT INVEST LAST, CREDIT OR BORROWED FUNDS.
   q2:
-    question: <big><big>W</big></big>HY ON THE BALANCE ALWAYS 0?
-    answer: Because the distribution of deposits is automatic - the deposit made is immediately distributed first in the queue. That is why the transaction requirement
-      gas 250000, because it may need to pass in turn. But if not needed, it returns, so do not worry.
+    question: <big><big>W</big></big>HY IS THE BALANCE ALWAYS ABOUT 0?
+    answer: Because the distribution of deposits is automatic - the deposit made is immediately distributed to the first users in the queue. That is why the transaction requires
+      250000 gas, because it may need the gas to pass in turn. But if not needed, it returns, so do not worry.
       By the way, instant distribution of deposits adds security, because there is nothing to steal from the balance of the contract. All ether is immediately distributed to the queue.
   q3:
     question: <big><big>W</big></big>hy our project?
@@ -138,20 +138,20 @@ faq:
                 </li>
             </ul>'
   q4:
-    question: <big><big>W</big></big>HAT WILL IF DEVELOPERS STOP PROJECT SUPPORT?
+    question: <big><big>W</big></big>HAT WILL HAPPEN IF DEVELOPERS STOP SUPPORTING PROJECT?
     answer: This is a contract without an owner, that is, the developers
-      can not stop support. She contract is not required. Consequently, the contract will continue to work under any circumstances.
+      can not stop support. The contract itself does not require support. Thus, the contract will continue to work under any circumstances.
   q5:
-    question: <big><big>T</big></big>here is does the project have a referral program?
-    answer: '<p>
-               No, because the referral program is just a waste of investor money.
+    question: <big><big>D</big></big>oes the project have a referral program?
+    answer: "<p>
+               No, because the referral program is just a waste of investor's money.
             </p>
             <p>
                 Since the contract is really good, you get a good percentage of your investments.
             </p>
             <p>
                 Attract others to participate in the program without a referral link - and you will be able to wrap up your deposits many more times!
-            </p>'
+            </p>"
   q6:
     question: <big><big>H</big></big>ow many I can earn on MULTIPLIER?
     answer: '<p>
@@ -165,20 +165,20 @@ faq:
                ALL investments in cryptocurrency are very high risk - you need to remember this! DO NOT INVEST LAST, CREDIT OR BORROWED FUNDS.
             </p>'
   q7:
-    question: <big><big>I </big></big> became a depositor of the MULTIPLIER, and when will I get my 111-141%?
+    question: <big><big>I</big></big> became a depositor of the MULTIPLIER, and when will I get my 111-141%?
     answer: 'If you sent ETH to the address of the contract, indicated a sufficient amount of gas (at least 250,000), your transaction was confirmed, then you will definitely receive a payment.
         You cannot specify the exact time, but payments are made automatically with each new deposit. Payments are made in the strict order of 
         deposits. And since all participants are on an equal footing, it remains only to wait for their turn. '
   q8:
-    question: <big><big>W</big></big>hat will be if the site stops working or will not open?
-    answer: 'The site is only an informational function and does not affect the operation of the smart contract. Acceptance of deposits is carried out directly to the address of the smart contract,
-        and payments are made automatically from a smart contract to the wallet from which you made a deposit. In addition to the site information can be obtained from our group in <a href="https://t.me/multitoday_eng">telegram</a>.'
+    question: <big><big>W</big></big>hat will happen if the site stops working or does not open?
+    answer: 'The site has only an informational function and does not affect the operation of the smart contract. Acceptance of deposits is carried out directly by the smart contract,
+        and payouts are made automatically from a smart contract to the wallet from which you made a deposit. In addition to the site an information can be obtained from our group in <a href="https://t.me/multitoday_eng">telegram</a>.'
   q9: 
-    question: <big><big>I</big></big>t legally?
+    question: <big><big>I</big></big>s it legal?
     answer: Yes, the procedure for increasing your contribution is described clearly and to the point.
-        The whole procedure is strictly documented in the code of the smart contract, and it follows it strictly.
+        The whole procedure is documented in the code of the smart contract, and it follows it strictly.
         Therefore, fraud is completely EXCLUDED. However, since in general all investments in cryptocurrency are risky,
-        Do not invest in the project last, credit or borrowed funds. MULTIPLIER is for smart user.
+        do not invest in the project last, credit or borrowed funds. MULTIPLIER is for smart users.
   questions_left: Any questions left?
   ask_questions: Ask them in our communities:
 
