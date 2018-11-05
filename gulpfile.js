@@ -12,7 +12,7 @@ var options = {
 }
 
 gulp.task('translate', function() {
-  var translations = ['ru' /*, 'en', 'ro', 'zh'*/];
+  var translations = ['ru', 'en' /*, 'ro', 'zh'*/];
  
   gulp.src('./src/router/index.html')
       .pipe( include()

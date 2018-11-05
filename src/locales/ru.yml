@@ -51,6 +51,14 @@ stats:
   deposits_all: ВКЛАДОВ ВСЕГО
   dividends_out: ВЫПЛАЧЕНО ETH
   last_payout: ПОСЛЕДНЯЯ ВЫПЛАТА
+  start: Старт
+  status: Cтатус
+  start_in: До старта
+  status_active: ЖАРА!!!
+  candidate: Кандидат на приз
+  in: через
+  prize: приз
+  received: получен
 
 distribution:
   title: Распределение средств
@@ -173,5 +181,5 @@ faq:
   ask_questions: Задайте их в наших сообществах:
 
 community:
-  btt: https://bitcointalk.org/index.php?topic=5031592.0
+  btt: https://bitcointalk.org/index.php?topic=5063601.0
   telegram: https://t.me/multitoday

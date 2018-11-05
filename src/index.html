@@ -4579,8 +4579,8 @@
   																											<div class="dropdown-content">
   																											    <ul class="languagepicker">
 																													<a href="/ru/" onclick="return onChangeLang('ru')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/ru.svg"/>Русский</li></a>
-    																												<!--<a href="/en/" onclick="return onChangeLang('en')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/gb.svg"/>English</li></a>
-																													<a href="/ro/" onclick="return onChangeLang('ro')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/ro.svg"/>Română</li></a>
+    																												<a href="/en/" onclick="return onChangeLang('en')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/gb.svg"/>English</li></a>
+																													<!--<a href="/ro/" onclick="return onChangeLang('ro')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/ro.svg"/>Română</li></a>
 																													<a href="/zh/" onclick="return onChangeLang('zh')"><li><img src="https://cdn.rawgit.com/lipis/flag-icon-css/master/flags/4x3/cn.svg"/>简体中</li></a> -->
   																											    </ul>
   																											</div>
@@ -4832,10 +4832,10 @@
                                 	
                                 </style>
                                 <div class="node nodeStatus widget widget-text">
-                                	<p>Старт: <span id="startTime">???</span>
-                                	<p>Cтатус: <span id="statusPending">До старта <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">ЖАРА!!!</span>
-                                	<p id="curPrizeInfo">Кандидат на приз <span id="prize">0</span> ETH: <span id="prizeTo">???</span> через <span id="prizeIn">???</span></p>
-                                	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: приз <span id="histPrizeSum">0</span> ETH получен <span id="histPrizeAddr">???</span></p></div>
+                                	<p>{{ stats.start | translate }}: <span id="startTime">???</span>
+                                	<p>{{ stats.status | translate }}: <span id="statusPending">{{ stats.start_in | translate }} <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">{{ stats.status_active | translate }}</span>
+                                	<p id="curPrizeInfo">{{ stats.candidate | translate }} <span id="prize">0</span> ETH: <span id="prizeTo">???</span> {{ stats.in | translate }} <span id="prizeIn">???</span></p>
+                                	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: {{ stats.prize | translate }} <span id="histPrizeSum">0</span> ETH {{ stats.received | translate }} <span id="histPrizeAddr">???</span></p></div>
                                 </div>
                                 <!--<div class="node node24 widget widget-text">
                                     <div class="wrapper1">
@@ -6184,8 +6184,8 @@
                                                                     <div class="wrapper2">
                                                                         <div class="grid valign-middle paddings-20px xs-wrap">
                                                                             <div class="gridwrap">
-                                                                                <!--
-                                                                                <div class="col" style="width: 20%;">
+
+                                                                                <div class="col" style="width: 50%;">
                                                                                     <div class="cont">
                                                                                         <div class="node node132 widget widget-button">
                                                                                             <div class="wrapper1">
@@ -6203,8 +6203,8 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div> -->
-                                                                                <div class="col" style="width: 20%;">
+                                                                                </div>
+                                                                                <div class="col" style="width: 50%;">
                                                                                     <div class="cont">
                                                                                         <div class="node node134 widget widget-button">
                                                                                             <div class="wrapper1">

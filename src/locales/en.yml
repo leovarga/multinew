@@ -1,0 +1,187 @@
+meta:
+  description: Multiplier - this is a contract multiplying your investments, based on smart contract Ethereum. The contract allows you to get 111-141% of your deposit in a short time!
+  keywords: multiply, mutual assistance contract, mmm3eth, mmm, easy invest, easy invest, 
+    smart contract, investments, ether, ethereum, earnings on the Internet, passive income, 
+    investors, investment fund, income, finance, freebie,  simple earnings, how to make money on the Internet, 
+    smart contract, cryptocurrency, bounty, bitcoin, money, pandemica, gorgona, easy money, investment fund, financial pyramid
+  title: MULTIPLIER - multiply contract!
+
+switch_lang:
+  country_code: gb
+  title: English
+
+menu:
+  technology: Technology
+  features: Special features
+  instructions: Instruction
+  faq: Questions
+
+homepage:
+  name: MULTIPLIER
+  title: Multiplies your deposits in no time!
+  mainpoint: <big>111-141%</big> once but quickly! 
+  guarantee: Secure investment guarantee is provided by a standalone smart contract created on a cryptocurrency platform Ethereum 
+
+  youtube_id: BCgoAEf6n1E
+
+button:
+  make_investment: Make a deposit
+  see_contract: See contract
+  show_address: Show address
+
+smarts:
+  p1: The contract organizes its depositors into a queue. Let's say you made a deposit and already the first in the queue. Then the deposit of the last user entering the queue immediately goes to pay you until you reach 111-141% of your deposit.
+  p2: As soon as a user receives 111-141% of his deposit, he is removed from the queue, making room for the next user. Thus, unlike pyramids, in which interest is paid for life, here they are paid very limitedly - you get exactly 111-141%. But fast!
+  p3: A smart user, having received 111%, may well make a deposit again, and then the interest will already be 113%. And each time reinvestment will increase %%%. In principle, a very smart user can even make several deposits at once. 
+      But it is important to remember that for a deposit project growth the maximum deposit is limited to 10 ETH!
+      <p> For the last one who deposited not less than 0.05 ETH and being the last for more than 20 minutes, there is a bonus - 2% of turnover! To get the prize you must send 0 ETH to the address of the contract (gas limit 350000 minimum!)
+      <p> The queue restarts every day at 20:00 Moscow time (GMT+3). The contract stops accepting deposits 20 minutes before the restart.
+      <p> The rate of increasing interest with each round of reinvestment: 111% for 1st, 113% for 2nd, 117% for 3rd, 121% for 4th, 125% for 5th, 130% for 6th, 135% for 7th, 141% for 8th circle
+      
+
+stats:
+  title: The current status of the MULTIPLIER
+  invested_eth: INVESTED ETH
+  invested_usd: INVESTED USD
+  investors: INVESTORS
+  investment: 'DEPOSITS ON AMOUNT:'
+  input_hint: Enter the address from which you invested in the format 0x0123456789abcdef... 
+      or the amount you want to invest
+  deposits_waiting: YOUR NUMBER
+  deposits_all: DEPOSITS TOTAL
+  dividends_out: PAYOUT ETH
+  last_payout: LAST PAYOUT
+  start: Start
+  status: Status
+  start_in: Start in
+  status_active: RUSH!!!
+  candidate: Candidate for prize
+  in: in
+  prize: prize
+  received: is received
+
+distribution:
+  title: Distribution of funds
+  subtitle: 'Less commissions - more payout!'
+  referal: Referral program - <big>0%</big>
+  prize: Prize fund - <big>2%</big>
+  service: Technical support - <big>2%</big>
+  ads: Advertising budget - <big>2%</big>
+  first: Speeding up <a href="https://first.multi.today">the first multiplier</a> - <big>1%</big>
+  payout: Payout multiplier - <big>93%</big>
+
+instruction:
+  title: How to multiply a deposit
+  step1:
+    title: Register and replenish ETH wallet
+    p1: For mobile devices we recommend using a wallet  
+      <a href="https://trustwalletapp.com/" target="_blank">Trust Wallet</a>.
+    p2: You can also use one of the most popular online-wallets
+      <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>.
+      To store and transfer cryptocurrency on your desktop computer you can use a wallet
+      <a href="https://jaxx.io/downloads.html" target="_blank">Jaxx</a>
+    p3: You can purchase Ethereum cryptocurrency for USD and other currency at 
+      <a href="https://www.bestchange.com/?p=831118">https://www.bestchange.com</a>.
+  step2:
+    title: Invest ETH for 111-141% payout
+    subtitle: 'Send ETH from your wallet to the smart contract address:'
+    copy: Copy contract address
+    p1: Minimum investment is 0.01 ETH, maximum &mdash; 10 ETH
+    p2: 'Minimum gas limit: <b>250000</b>, atual gas price you can see at
+      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>'
+    p3: You can not transfer money from exchanges, only from your personal ETH wallet
+    p4: "   "
+  step3:
+    title: Check and track your transaction
+    subtitle: Check the success of you transaction in your wallet application history 
+      or at the site <a href="https://etherscan.io" target="_blank">etherscan.io</a>,
+      just enter your wallet address there
+  step4:
+    title: Receive automatic payout
+    p1: The contract remembers the address of your wallet, as well as the deposit amount 
+      and places you at the end of the queue
+    p2: When you become no 1 in the queue you start to receive payouts. You will receive 111-141% 
+      of you deposit in one or several transactions but the sum will be exactly 111-141%.
+    p3: While waiting for the payout you are allowed to place more deposits.
+
+faq:
+  title: Often asked Questions
+  q1:
+    question: <big>W</big></big>here guarantee that I will get my 111-141%?
+    answer: The smart contract of the project is uploaded to the Ethereum blockchain. His work is ABSOLUTELY and COMPLETELY automated.
+      No administrative intervention is required for making payouts. AT ALL! The contract does not even have official functions.
+      The contract creator does not have access to the code and data.
+      The contract cannot be changed or deleted. Funds falling on the balance of the contract are distributed
+      into the queue immediately, without accumulating on it. The contract code ensures that the turn comes to pay you -
+      no one can drive in front of you, all new depositors are added to the end of the queue.
+      <p> Important! ALL investments in cryptocurrency are very high risk - you need to remember this! DO NOT INVEST LAST, CREDIT OR BORROWED FUNDS.
+  q2:
+    question: <big><big>W</big></big>HY ON THE BALANCE ALWAYS 0?
+    answer: Because the distribution of deposits is automatic - the deposit made is immediately distributed first in the queue. That is why the transaction requirement
+      gas 250000, because it may need to pass in turn. But if not needed, it returns, so do not worry.
+      By the way, instant distribution of deposits adds security, because there is nothing to steal from the balance of the contract. All ether is immediately distributed to the queue.
+  q3:
+    question: <big><big>W</big></big>hy our project?
+    answer: '<ul>
+               <li><big><b> Very simple and fair contract. </b></big><br/>
+               Our contract has the most simple, honest and therefore the most reliable source code that is available for viewing to everyone.
+                </li>
+                <li><big><b> No owner </b></big><br/>
+               There is no owner in the contract, the creators participate in it as ordinary investors. Is this not the best proof of its reliability?
+                </li>
+                <li><big><b> Low commissions </b></big><br/>
+               MULTIPLIER directs maximum funds to payments to its depositors. 93% of the investment goes on payments. So, you earn more.
+               The remaining 7% go to the maintenance of the site, advertising - that is, ensuring the long life of the project and the rapid turnover of your deposits.
+                </li>
+                <li><big><b> Autonomy </b></big><br/>
+               This is the first contract with autopayment, which is completely independent of the administration, has no owner and is therefore absolutely reliable.
+                </li>
+            </ul>'
+  q4:
+    question: <big><big>W</big></big>HAT WILL IF DEVELOPERS STOP PROJECT SUPPORT?
+    answer: This is a contract without an owner, that is, the developers
+      can not stop support. She contract is not required. Consequently, the contract will continue to work under any circumstances.
+  q5:
+    question: <big><big>T</big></big>here is does the project have a referral program?
+    answer: '<p>
+               No, because the referral program is just a waste of investor money.
+            </p>
+            <p>
+                Since the contract is really good, you get a good percentage of your investments.
+            </p>
+            <p>
+                Attract others to participate in the program without a referral link - and you will be able to wrap up your deposits many more times!
+            </p>'
+  q6:
+    question: <big><big>H</big></big>ow many I can earn on MULTIPLIER?
+    answer: '<p>
+               MULTIPLIER - not a means to make money. It multiplies your investment. Each deposit is multiplied only once in the queue.
+               The first entered - the first multiplied. Each deposit is multiplied by + 11-41%. Maximum transaction 10 ETH, that is, on one deposit
+               You can get the maximum profit from 1.1 to 4.1 ETH. You can queue to put several deposits simultaneously. Then you with each deposit
+               get + 11-41%.
+            </p>
+            <p>
+              Important! 
+               ALL investments in cryptocurrency are very high risk - you need to remember this! DO NOT INVEST LAST, CREDIT OR BORROWED FUNDS.
+            </p>'
+  q7:
+    question: <big><big>I </big></big> became a depositor of the MULTIPLIER, and when will I get my 111-141%?
+    answer: 'If you sent ETH to the address of the contract, indicated a sufficient amount of gas (at least 250,000), your transaction was confirmed, then you will definitely receive a payment.
+        You cannot specify the exact time, but payments are made automatically with each new deposit. Payments are made in the strict order of 
+        deposits. And since all participants are on an equal footing, it remains only to wait for their turn. '
+  q8:
+    question: <big><big>W</big></big>hat will be if the site stops working or will not open?
+    answer: 'The site is only an informational function and does not affect the operation of the smart contract. Acceptance of deposits is carried out directly to the address of the smart contract,
+        and payments are made automatically from a smart contract to the wallet from which you made a deposit. In addition to the site information can be obtained from our group in <a href="https://t.me/multitoday_eng">telegram</a>.'
+  q9: 
+    question: <big><big>I</big></big>t legally?
+    answer: Yes, the procedure for increasing your contribution is described clearly and to the point.
+        The whole procedure is strictly documented in the code of the smart contract, and it follows it strictly.
+        Therefore, fraud is completely EXCLUDED. However, since in general all investments in cryptocurrency are risky,
+        Do not invest in the project last, credit or borrowed funds. MULTIPLIER is for smart user.
+  questions_left: Any questions left?
+  ask_questions: Ask them in our communities:
+
+community:
+  btt: https://bitcointalk.org/index.php?topic=5063601.0
+  telegram: https://t.me/multitoday_eng
