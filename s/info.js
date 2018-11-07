@@ -499,7 +499,7 @@ function adjustTime(){
 	adjustTime.correction = 0;
 
 	var beforeAsk = +new Date();
-    fetch('https://worldclockapi.com/api/json/utc/now?_=' + (+new Date())).then(response => response.json()).then(tm => {
+    fetch('https://cors-anywhere.herokuapp.com/http://worldclockapi.com/api/json/utc/now?_=' + (+new Date())).then(response => response.json()).then(tm => {
     	var time = tm.currentFileTime / 10000 - 11644473600000;
     	var diff = (time-(+new Date() + beforeAsk)/2);
     	console.log("Difference: " + diff);
