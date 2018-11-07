@@ -506,3 +506,15 @@ function adjustTime(){
     	adjustTime.correction = Math.round(diff);
     });
 }
+
+function updateInfo(){
+    getInfo(window.investmentInfo || window.g_initialInfo).then(function(info){
+    	window.investmentInfo = info;
+
+    	updateHistoricInfo(info);
+
+    	drawChart(info);
+
+    	calcInvestment();
+    });
+}

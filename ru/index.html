@@ -21,7 +21,7 @@
 		
         <link rel="icon" type='image/png' href="https://www.primeinvestments.co.za/images/investmentPlanIcon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="/s/info.js?v=9"></script>
+        <script type="text/javascript" src="/s/info.js?v=10"></script>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/vendors.css"></link>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/plp.css"></link>
         <link type="text/css" rel="stylesheet" href="//s.filesonload.ru/assets/3.3/nodes.css"></link>
@@ -6386,21 +6386,17 @@
         <script>
             document.getElementById('inputInvestments').value = localStorage.getItem('address') || '';
 
-            getInfo(window.g_initialInfo).then(function(info){
-            	window.investmentInfo = info;
-
-            	updateHistoricInfo(info);
-
-            	drawChart(info);
-
-            	calcInvestment();
-            });
+            updateInfo();
 
             adjustTime();
 
             window.multiplier = getContractInstance();
 			updateContractInfo();
-			setInterval(updateContractInfo, 3000);
+			setInterval(function() {
+				updateContractInfo();
+				updateInfo();
+			}, 3000);
+
         </script>
     </body>
 </html>
