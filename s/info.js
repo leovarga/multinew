@@ -1,12 +1,13 @@
-﻿function getInfo(initialInfo){
+﻿
+function getInfo(initialInfo){
 	var rate = fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/")
 		.then(function(response){
 			return response.json();
 		});
 	var defLastBlock = 0;
 	if(!initialInfo)
-		initialInfo = {address: '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8', sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
-	if(!initialInfo.address) initialInfo.address = '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8';
+		initialInfo = {address: '0x40D149F29f27d5Da19b580FF642283B3c5753cEa', sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
+	if(!initialInfo.address) initialInfo.address = '0x40D149F29f27d5Da19b580FF642283B3c5753cEa';
 
 	var jsonInternalPromise = fetch("https://api.etherscan.io/api?module=account&action=txlistinternal&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlockInner || initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
 		.then(function(response){
@@ -56,7 +57,7 @@
 				info.min = investment;
 			if(investment > info.max)
 				info.max = investment;
-		}else{
+		}else if(tr.to){ //prize transations, skip contract creation
 			var prize = {
 				hash: tr.hash,
 				timeStamp: +tr.timeStamp,
@@ -99,7 +100,7 @@
 							if(info.prizesMap[tr.hash]){
 								var prize = info.prizesMap[tr.hash];
 								if(tr.from.toLowerCase() === contractAddress &&
-									tr.to.toLowerCase() !== '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8'){
+									tr.to.toLowerCase() !== '0x40D149F29f27d5Da19b580FF642283B3c5753cEa'){
 									prize.sum = +tr.value;
 									prize.addr = tr.to;
 								}
@@ -380,7 +381,7 @@ function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
 
 	start = fmtTime(new Date(startTime*1000));
 
-	if(!candidate.addr || /^0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8+$/i.test(candidate.addr)){
+	if(!candidate.addr || /^0x40D149F29f27d5Da19b580FF642283B3c5753cEa+$/i.test(candidate.addr)){
 		cand = ' --- '; candTime = '--:--';
 	}else{
 		cand = candidate.addr;
@@ -488,7 +489,7 @@ function onChangeLang(lang){
 function getContractInstance(){
 	var web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/metamask"));
 	var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"currentQueueSize","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentStageByTime","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentReceiverIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositorMultiplier","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"FATHER_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_INVESTMENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"prizeAmount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PRIZE_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDeposits","outputs":[{"name":"idxs","type":"uint256[]"},{"name":"deposits","type":"uint128[]"},{"name":"expects","type":"uint128[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MIN_INVESTMENT_FOR_PRIZE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"idx","type":"uint256"}],"name":"getDeposit","outputs":[{"name":"depositor","type":"address"},{"name":"deposit","type":"uint256"},{"name":"expect","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TECH_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"depositsMade","outputs":[{"name":"stage","type":"int128"},{"name":"count","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getQueueLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"stage","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PROMO_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositsCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_IDLE_TIME","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"lastDepositInfo","outputs":[{"name":"index","type":"uint128"},{"name":"time","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentCandidateForPrize","outputs":[{"name":"addr","type":"address"},{"name":"timeLeft","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_stage","type":"int256"}],"name":"getStageStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]');
-	var address = '0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8';
+	var address = '0x40D149F29f27d5Da19b580FF642283B3c5753cEa';
 	var contractInstance = new web3.eth.Contract(abi, address);
 	contractInstance.web3 = web3;
 
