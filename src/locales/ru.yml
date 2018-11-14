@@ -21,7 +21,7 @@ homepage:
   name: УМНОЖИТЕЛЬ
   title: Умный контракт для преумножения накоплений умных жителей
   mainpoint: <big>111-141%</big> однократно, но быстро! 
-  guarantee: '<big><font color=red><b>НОВЫЙ АДРЕС КОНТРАКТА</b></font></big>: 0x40D149F29f27d5Da19b580FF642283B3c5753cEa - (добавлено ограничение цены газа: 50 Gwei MAX)' 
+  guarantee: '<big><font color=darkgreen><b>АДРЕС КОНТРАКТА</b></font></big>: 0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8 - (убрано ограничение цены газа)' 
 
   youtube_id: BCgoAEf6n1E
 
@@ -88,7 +88,7 @@ instruction:
     copy: Скопируйте адрес контракта
     p1: Минимальная сумма вложения 0.01 ETH, максимальная 10 ETH
     p2: Минимальный gas limit: <b>250000</b>, актуальный gas price можно взять с
-      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>. Но МАКСИМАЛЬНЫЙ gas price 50 Gwei! Не указывайте больше!
+      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>. <!--Но МАКСИМАЛЬНЫЙ gas price 50 Gwei! Не указывайте больше!-->
     p3: Не допускаются перечисления с бирж, только с вашего личного ETH кошелька
     p4: "   "
   step3:

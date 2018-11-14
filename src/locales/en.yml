@@ -20,7 +20,7 @@ homepage:
   name: MULTIPLIER
   title: Multiplies your deposits in no time!
   mainpoint: <big>111-141%</big> once but quickly! 
-  guarantee: '<big><font color=red><b>NEW CONTRACT ADDRESS</b></font>: 0x40D149F29f27d5Da19b580FF642283B3c5753cEa - (added gas price limit: 50 Gwei MAX)</big>'
+  guarantee: '<big><font color=darkgreen><b>CONTRACT ADDRESS</b></font>: 0x29f8D02F8631FD9b1117F4eb4d827326cc9a7ad8 - (removed gas price limit)</big>'
 
   youtube_id: BCgoAEf6n1E
 
@@ -88,7 +88,7 @@ instruction:
     copy: Copy contract address
     p1: Minimum investment is 0.01 ETH, maximum &mdash; 10 ETH
     p2: 'Minimum gas limit: <b>250000</b>, actual gas price you can see at
-      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>. But MAXIMUM GAS PRICE ALLOWED IS 50 Gwei. Do not specify more.'
+      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>. <!--But MAXIMUM GAS PRICE ALLOWED IS 50 Gwei. Do not specify more.-->'
     p3: You can not transfer money from exchanges, only from your personal ETH wallet
     p4: "   "
   step3:
