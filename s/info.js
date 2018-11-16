@@ -370,23 +370,26 @@ function fmtAddress(addr){
 	return addr.replace(/^(0x.{4}).*(.{4})$/, '$1&hellip;$2');
 }
 
-function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
+async function updateContractInfo1(stage, stageByTime, candidate, startTime, prize){
 	var status, start, cand, candTime;
 	
-	if(stage == stageByTime){
-		status = true;
-	}else{
-		status = false;
-	}
-
-	start = fmtTime(new Date(startTime*1000));
-
-	if(!candidate.addr || /^0x40D149F29f27d5Da19b580FF642283B3c5753cEa+$/i.test(candidate.addr)){
+	if(!candidate.addr || /^0x0+$/i.test(candidate.addr)){
 		cand = ' --- '; candTime = '--:--';
 	}else{
 		cand = candidate.addr;
 		candTime = n2(Math.floor(candidate.timeLeft/60)) + ':' + n2(candidate.timeLeft%60);
 	}
+
+	if(stage == stageByTime){
+		status = true;
+	}else{
+		status = false;
+		if(stage < stageByTime && candTime == '--:--'){
+			startTime = await window.multiplier.methods.getStageStartTime(+stageByTime + 1).call();
+		}
+	}
+
+	start = fmtTime(new Date(startTime*1000));
 
 	console.log(status, start, cand);
 
