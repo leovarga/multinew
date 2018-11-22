@@ -352,7 +352,7 @@ async function updateContractInfo(){
 
 	let [stage, stageByTime, prize] = await Promise.all([stagePs, stageByTimePs, prizePs]);
 	let startTime = await window.multiplier.methods.getStageStartTime(stage).call();
-	updateContractInfo1(stage, stageByTime, candidate, startTime, prize);
+	updateContractInfo1(+stage, +stageByTime, candidate, +startTime, prize);
 }
 
 function n2(str){
@@ -385,7 +385,7 @@ async function updateContractInfo1(stage, stageByTime, candidate, startTime, pri
 	}else{
 		status = false;
 		if(stage < stageByTime && candTime == '--:--'){
-			startTime = await window.multiplier.methods.getStageStartTime(+stageByTime + 1).call();
+			startTime = +(await window.multiplier.methods.getStageStartTime(+stageByTime + 1).call());
 		}
 	}
 
