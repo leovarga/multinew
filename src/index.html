@@ -4835,6 +4835,7 @@
                                 	<p>{{ stats.start | translate }}: <span id="startTime">???</span>
                                 	<p>{{ stats.status | translate }}: <span id="statusPending">{{ stats.start_in | translate }} <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">{{ stats.status_active | translate }}</span>
                                 	<p id="curPrizeInfo">{{ stats.candidate | translate }} <span id="prize">0</span> ETH: <span id="prizeTo">???</span> {{ stats.in | translate }} <span id="prizeIn">???</span></p>
+                                    <p>{{ stats.prizeMinDep | translate }} <span id="prizeMinDep">0.03</span> ETH</p>
                                 	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: {{ stats.prize | translate }} <span id="histPrizeSum">0</span> ETH {{ stats.received | translate }} <span id="histPrizeAddr">???</span></p></div>
                                 </div>
                                 <div class="node node24 widget widget-text">
@@ -5217,7 +5218,6 @@
                                         		<li>{{ distribution.prize | translate }}</li>
                                         		<li>{{ distribution.ads | translate }}</li>
                                         		<li>{{ distribution.service | translate }}</li>
-                                        		<li>{{ distribution.first | translate }}</li>
                                         		<li>{{ distribution.referal | translate }}</li>
                                         	</ul>
                                         </div>

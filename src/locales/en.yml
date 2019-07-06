@@ -20,7 +20,7 @@ homepage:
   name: MULTIPLIER
   title: Multiplies your deposits in no time!
   mainpoint: <big>111-141%</big> once but quickly! 
-  guarantee: '<big><font color=red><b>NEW CONTRACT ADDRESS</b></font>: 0x40D149F29f27d5Da19b580FF642283B3c5753cEa - (added gas price limit: 50 Gwei MAX)</big>'
+  guarantee: ' '
 
   youtube_id: BCgoAEf6n1E
 
@@ -34,8 +34,7 @@ smarts:
   p2: As soon as a user receives 111-141% of his deposit, he is removed from the queue, making room for the next user. Thus, unlike pyramids, in which interest is paid for life, here they are paid very limitedly - you get exactly 111-141%. But fast!
   p3: A smart user, having received 111%, may well make a deposit again, and then the interest will already be 113%. And each time reinvestment will increase %%%. In principle, a very smart user can even make several deposits at once. 
       But it is important to remember that for a deposit project growth the maximum deposit is limited to 10 ETH!
-      <p> For the last one who deposited not less than 0.05 ETH and being the last for more than 20 minutes, there is a bonus - 2% of turnover! To get the prize you must send 0 ETH to the address of the contract (gas limit 350000 minimum!)
-      <p> The queue restarts every day at 20:00 Moscow time (GMT+3). The contract stops accepting deposits 20 minutes before the restart.
+      <p> The last investor made a deposit more than 30 min ago wins a prize - 5% of turnover! To get the prize you must send 0 ETH to the address of the contract (gas limit 350000 minimum!). ATTENTION: the minimum deposit eligible for a prize increases every hour by 0.03 ETH!
       <p> The rate of increasing interest with each round of reinvestment: 111% for 1st, 113% for 2nd, 117% for 3rd, 121% for 4th, 125% for 5th, 130% for 6th, 135% for 7th, 141% for 8th circle
       
 
@@ -59,16 +58,16 @@ stats:
   in: in
   prize: prize
   received: is received
+  prizeMinDep: Minimum deposit for a prize is
 
 distribution:
   title: Distribution of funds
   subtitle: 'Less commissions - more payout!'
   referal: Referral program - <big>0%</big>
-  prize: Prize fund - <big>2%</big>
-  service: Technical support - <big>2%</big>
-  ads: Advertising budget - <big>2%</big>
-  first: Speeding up <a href="https://first.multi.today">the first multiplier</a> - <big>1%</big>
-  payout: Payout multiplier - <big>93%</big>
+  prize: Prize fund - <big>5%</big>
+  service: Technical support - <big>5%</big>
+  ads: Advertising budget - <big>5%</big>
+  payout: Payout - <big>90%</big>
 
 instruction:
   title: How to multiply a deposit
@@ -130,8 +129,8 @@ faq:
                There is no owner in the contract, the creators participate in it as ordinary investors. Is this not the best proof of its reliability?
                 </li>
                 <li><big><b> Low commissions </b></big><br/>
-               MULTIPLIER directs maximum funds to payments to its depositors. 93% of the investment goes on payments. So, you earn more.
-               The remaining 7% go to the maintenance of the site, advertising - that is, ensuring the long life of the project and the rapid turnover of your deposits.
+               MULTIPLIER directs maximum funds to payments to its depositors. 90% of the investment goes on payments. So, you earn more.
+               The remaining 10% go to the maintenance of the site, advertising - that is, ensuring the long life of the project and the rapid turnover of your deposits.
                 </li>
                 <li><big><b> Autonomy </b></big><br/>
                This is the first contract with autopayment, which is completely independent of the administration, has no owner and is therefore absolutely reliable.
