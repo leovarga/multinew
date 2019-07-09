@@ -1,18 +1,47 @@
 ﻿
 function getInfo(initialInfo){
-	var rate = fetch("https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/ethereum/")
+	var rate = fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken")
 		.then(function(response){
 			return response.json();
-		});
+        });
 	var defLastBlock = 0;
 	if(!initialInfo)
 		initialInfo = {address: '0xdf17e8cc5d8020acb11af5178715cce6600d1c98', sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
 	if(!initialInfo.address) initialInfo.address = '0xdf17e8cc5d8020acb11af5178715cce6600d1c98';
+	var txall = {};
 
 	var jsonInternalPromise = fetch("https://api-rinkeby.etherscan.io/api?module=account&action=txlistinternal&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlockInner || initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
 		.then(function(response){
 			return response.json();
+		}).then(function(json){
+			for(let i=0; i<json.result.length; ++i){
+				let t = json.result[i];
+				let tri = txall[t.hash];
+				if(!tri)
+					tri = txall[t.hash] = {out: []};
+				if(!tri.out)
+				    tri.out = [];
+				tri.out.push(t);
+			}
+			return json;
 		});
+
+    var jsonPromise = fetch("https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
+        .then(function(response){
+            return response.json();
+        }).then(function(json){
+            for(let i=0; i<json.result.length; ++i){
+                let t = json.result[i];
+                let tri = txall[t.hash];
+                if(!tri)
+                    tri = txall[t.hash] = {};
+                tri.inn = t;
+            }
+            return json;
+        }, function(e){
+            console.error('Error fetching internal transactions: ', e);
+            return {result: []};
+        });
 
 	function gatherTxIn(info, tr){
 		var val = +tr.value;
@@ -29,8 +58,12 @@ function getInfo(initialInfo){
 
 		if(+tr.isError)
 			return info;
+
+		let trx = txall[tr.hash];
+		let inn = +trx.inn.value;
+		let out = (trx.out || []).reduce((acc, t) => acc += +t.value, 0);
 		
-		if(val){
+		if(val && out <= inn + 0.00000001){
 			info.last = val;
 			info.last_time = tr.timeStamp * 1000;
 		
@@ -57,11 +90,15 @@ function getInfo(initialInfo){
 				info.min = investment;
 			if(investment > info.max)
 				info.max = investment;
-		}else if(tr.to){ //prize transations, skip contract creation
+		}else if(tr.to && trx.out){ //prize transations, skip contract creation
 			var prize = {
 				hash: tr.hash,
 				timeStamp: +tr.timeStamp,
 			};
+
+            let itr = trx.out.find(v => v.to !== trx.inn.from || v.value !== trx.inn.value);
+            prize.sum = +itr.value;
+            prize.addr = itr.to;
 
 			info.prizes.push(tr.hash);
 			info.prizesMap[tr.hash] = prize;
@@ -69,10 +106,10 @@ function getInfo(initialInfo){
 		return info;
 	}
 
-	return fetch("https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
-		.then(function(response){
-			return response.json();
-		}).then(function(json){
+    return Promise.all([jsonInternalPromise, jsonPromise]).then(function(jsons){
+            var json = jsons[1];
+            var jsonInternal = jsons[0];
+
 			var info = json.result.reduce(function(info, tr){
 				if(!info.firstBlock){
 					info.firstBlock = +tr.blockNumber;
@@ -87,43 +124,28 @@ function getInfo(initialInfo){
 			info.avg = info.sum/info.num;
 
 			return rate.then(function(ratejson){
-				info.rate = +ratejson[0].price_usd;
+				info.rate = +ratejson.result.ethusd;
 				info.sum_usd = info.sum/Math.pow(10, 18) * info.rate;
 				const contractAddress = info.address.toLowerCase();
 
-				return jsonInternalPromise.then(function(json){
-					info = json.result.reduce(function(info, tr){
-						info.lastBlockInner = +tr.blockNumber;
-						info.lastTimeInner = +tr.timeStamp;
+				return jsonInternal.result.reduce(function(info, tr){
+                    info.lastBlockInner = +tr.blockNumber;
+                    info.lastTimeInner = +tr.timeStamp;
 
-						if(!(+tr.isError)){
-							if(info.prizesMap[tr.hash]){
-								var prize = info.prizesMap[tr.hash];
-								if(tr.from.toLowerCase() === contractAddress &&
-									tr.to.toLowerCase() !== '0xdf17e8cc5d8020acb11af5178715cce6600d1c98'){
-									prize.sum = +tr.value;
-									prize.addr = tr.to;
-								}
-							}
-
-							if(tr.to.toLowerCase() === contractAddress){
-								info = gatherTxIn(info, tr);
-							}else if(tr.from.toLowerCase() === contractAddress){
-								var inv = info.investors[tr.to];
-								if(inv){
-									inv.got = (inv.got || 0) + (+tr.value);
-									inv.gotTime = tr.timeStamp*1000;
-								}
-						    	info.got = (info.got || 0) + (+tr.value);
-						    }
-						}
-						return info;
-					}, info);
-					return info;
-				}, function(e){
-					console.log('Error fetching internal transactions: ' + e);
-					return info;
-				});
+                    if(!(+tr.isError)){
+                        if(tr.to.toLowerCase() === contractAddress){
+                            info = gatherTxIn(info, tr);
+                        }else if(tr.from.toLowerCase() === contractAddress){
+                            var inv = info.investors[tr.to];
+                            if(inv){
+                                inv.got = (inv.got || 0) + (+tr.value);
+                                inv.gotTime = tr.timeStamp*1000;
+                            }
+                            info.got = (info.got || 0) + (+tr.value);
+                        }
+                    }
+                    return info;
+                }, info);
 			});
 
 		});
@@ -307,8 +329,8 @@ function updateDividentsTimer(investmentInfo, addr){
 }
 
 function fmtTime(d){
-	return ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-    		d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+	return '<span class="date">' + ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+    		d.getFullYear() + '</span> <span class="time">' + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + '</span>';
 }
 
 function updateDividents(investmentInfo, addr){
@@ -394,8 +416,9 @@ async function updateContractInfo1(stage, candidate, startTime, prize, prizeMinD
 
 	var prize_fmt = fmtEther(prize || 0);
 
-	document.getElementById('histPrizeContainer').style.display = status ? 'none' : 'inline';
-	document.getElementById('curPrizeInfo').style.display = !status ? 'none' : 'inline';
+	document.getElementById('histPrizeContainer').style.display = status ? 'none' : 'block';
+	document.getElementById('curPrizeInfo').style.display = !status ? 'none' : 'block';
+    document.getElementById('curPrizeInfoNoPrize').style.display = status ? 'none' : 'block';
 
 	document.getElementById('startTime').innerHTML = start;
 	document.getElementById('startTimeLeft').innerHTML = left;

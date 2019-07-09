@@ -50,7 +50,7 @@ stats:
   deposits_all: DEPOSITS TOTAL
   dividends_out: PAYOUT ETH
   last_payout: LAST PAYOUT
-  start: Start
+  start: Start time
   status: Status
   start_in: Start in
   status_active: RUSH!!!
@@ -58,7 +58,8 @@ stats:
   in: in
   prize: prize
   received: is received
-  prizeMinDep: Minimum deposit for a prize is
+  prizeMinDep: Min deposit for a prize
+  eth_address: enter ETH address
 
 distribution:
   title: Distribution of funds

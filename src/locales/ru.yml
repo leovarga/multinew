@@ -50,7 +50,7 @@ stats:
   deposits_all: ВКЛАДОВ ВСЕГО
   dividends_out: ВЫПЛАЧЕНО ETH
   last_payout: ПОСЛЕДНЯЯ ВЫПЛАТА
-  start: Старт
+  start: Время старта
   status: Cтатус
   start_in: До старта
   status_active: ЖАРА!!!
@@ -58,7 +58,8 @@ stats:
   in: через
   prize: приз
   received: получен
-  prizeMinDep: Минимальный депозит для приза:
+  prizeMinDep: Мин. депозит для приза
+  eth_address: введите ETH адрес
 
 distribution:
   title: Распределение средств

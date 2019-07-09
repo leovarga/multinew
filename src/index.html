@@ -20,6 +20,7 @@
 
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <script>
             window.plp = {
@@ -4770,31 +4771,26 @@
                                 	}
 
                                 	#startTime {
-                                		font-weight: bold;
-                                		font-size: 20px;
                                 	}
 
                                 	#statusPending {
                                 		color: #90fffc;
-                                		font-weight: bold;
-                                		font-size: 18px;
                                 	}
 
                                 	#statusActive {
                                 		display: none;
-                                		font-weight: bold;
-                                		font-size: 18px;
                                 		color: #f4acac;
                                 	}
 
                                 	#prize {
-                                		font-size: 20px;
-                                		font-weight: bold;
-
+                                        display: block;
                                 	}
+                                    #prize:after{
+                                        content: " ETH";
+                                        font-size: 18px;
+                                    }
 
                                     #startTimeLeft {
-                                    	font-size: 20px;
                                     }
 
                                 	#prizeTo {
@@ -4829,14 +4825,99 @@
                                 	#histPrizeAddr {
                                 		font-size: 18px;
                                 	}
-                                	
+
+                                    .stats-single-wrapper h1 {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        height: 100px;
+                                        font-family: "Poppins", sans-serif;
+                                        padding-top: 20px;
+                                        font-size: 40px;
+                                        text-align: center;
+
+                                    }
+                                    .stats-single-wrapper h4 {
+                                        text-align: center;
+                                        font-size: 20px;
+                                        font-weight: 400;
+                                        text-transform: uppercase;
+                                    }
+
+                                    #histPrizeContainer h2 {
+                                        text-align: center;
+                                    }
+
+                                    .startin {
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                        display: block;
+                                    }
+
+                                    #startTime .date {
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                        display: block;
+
+                                    }
+
+                                    #prizeTo, .prizeToIn, #prizeIn{
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                    }
+
+                                    #prizeIn{
+                                        font-weight: bold;
+                                        color: #f4acac;
+                                    }
+
+                                    .eth{
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                    }
                                 </style>
-                                <div class="node nodeStatus widget widget-text">
-                                	<p>{{ stats.start | translate }}: <span id="startTime">???</span>
-                                	<p>{{ stats.status | translate }}: <span id="statusPending">{{ stats.start_in | translate }} <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">{{ stats.status_active | translate }}</span>
-                                	<p id="curPrizeInfo">{{ stats.candidate | translate }} <span id="prize">0</span> ETH: <span id="prizeTo">???</span> {{ stats.in | translate }} <span id="prizeIn">???</span></p>
-                                    <p>{{ stats.prizeMinDep | translate }} <span id="prizeMinDep">0.03</span> ETH</p>
-                                	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: {{ stats.prize | translate }} <span id="histPrizeSum">0</span> ETH {{ stats.received | translate }} <span id="histPrizeAddr">???</span></p></div>
+                                <div class="container">
+                                    <div class="row" id="histPrizeContainer" >
+                                        <div class="col-sm-12">
+                                            <div class="sub-title">
+                                                <h2 data--duration=".7s" data--delay=".2s"><div>
+                                                    <p id="histPrize"><span id="histPrizeTime">???</span>: {{ stats.prize | translate }} <span id="histPrizeSum">0</span> ETH {{ stats.received | translate }} <span id="histPrizeAddr">???</span></p>
+                                                </div></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".2s">
+                                                <h1><div id="startTime">...</div></h1>
+                                                <h4>{{ stats.start | translate }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".5s">
+                                                <h1><div><span id="statusPending"><span class="startin">{{ stats.start_in | translate }}</span><span id="startTimeLeft">?:??:??</span></span><span id="statusActive">{{ stats.status_active | translate }}</span></div></h1>
+                                                <h4>{{ stats.status | translate }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item" >
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".3s" style="min-width: 200px">
+                                                <h1><div id="curPrizeInfo"><span id="prizeTo">???</span> <span class="prizeToIn">{{ stats.in | translate }}</span> <span id="prizeIn">???</span>
+                                                    <span id="prize">0</span></div>
+                                                <div id="curPrizeInfoNoPrize">...</div></h1>
+                                                <h4>{{ stats.candidate | translate }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".4s">
+                                                <h1><div><span class="eth">ETH</span><div id="prizeMinDep">0.03</div></div></h1>
+                                                <h4>{{ stats.prizeMinDep | translate }}</h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="node node24 widget widget-text">
                                     <div class="wrapper1">
@@ -4930,7 +5011,7 @@
                                         <div class="wrapper2">
                                             <div class="macros-button">
                                                 <div class="btn-out center xs-none">
-                                                    <a class="btn-inner" href="https://etherscan.io/address/0x40D149F29f27d5Da19b580FF642283B3c5753cEa" target="_blank">
+                                                    <a class="btn-inner" href="https://etherscan.io/address/0xDF17e8CC5d8020ACB11aF5178715cCe6600d1C98" target="_blank">
                                                         <button class="btn font-text" id="uid13" data-id="" data-action="link" data-ym_goal="" data-ga_category="" data-ga_action="" need_hover="true">
                                                             <span class="text">{{ button.see_contract | translate }}</span>
                                                         </button>
@@ -5099,7 +5180,7 @@
                                                             <div class="node node48 widget widget-image">
                                                                 <div class="wrapper1">
                                                                     <div class="wrapper2">
-                                                                    	<input type="text" id="inputInvestments" oninput="calcInvestment(true)" placeholder="введите ETH адрес"/><br/>
+                                                                    	<input type="text" id="inputInvestments" oninput="calcInvestment(true)" placeholder="{{ stats.eth_address | translate }}"/><br/>
                                                                          <p style="text-align: center;">
                                                                              <span style="font-size: 20px;">{{ stats.investment | translate }} <big id="calcInvestmentValue">?</big> ETH</span>
                                                                          </p>
@@ -5398,7 +5479,7 @@
                                                                                                                 <div class="">
                                                                                                                     <div class="xs-force-center textable">
                                                                                                                         <h1 style="text-align: center;">
-                                                                                                                            <span style="font-size: 16px;">0x40D149F29f27d5Da19b580FF642283B3c5753cEa</span>
+                                                                                                                            <span style="font-size: 16px;">0xDF17e8CC5d8020ACB11aF5178715cCe6600d1C98</span>
                                                                                                                         </h1>
                                                                                                                     </div>
                                                                                                                 </div>

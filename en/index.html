@@ -29,6 +29,7 @@
 
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <script>
             window.plp = {
@@ -4779,31 +4780,26 @@
                                 	}
 
                                 	#startTime {
-                                		font-weight: bold;
-                                		font-size: 20px;
                                 	}
 
                                 	#statusPending {
                                 		color: #90fffc;
-                                		font-weight: bold;
-                                		font-size: 18px;
                                 	}
 
                                 	#statusActive {
                                 		display: none;
-                                		font-weight: bold;
-                                		font-size: 18px;
                                 		color: #f4acac;
                                 	}
 
                                 	#prize {
-                                		font-size: 20px;
-                                		font-weight: bold;
-
+                                        display: block;
                                 	}
+                                    #prize:after{
+                                        content: " ETH";
+                                        font-size: 18px;
+                                    }
 
                                     #startTimeLeft {
-                                    	font-size: 20px;
                                     }
 
                                 	#prizeTo {
@@ -4838,14 +4834,99 @@
                                 	#histPrizeAddr {
                                 		font-size: 18px;
                                 	}
-                                	
+
+                                    .stats-single-wrapper h1 {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        height: 100px;
+                                        font-family: "Poppins", sans-serif;
+                                        padding-top: 20px;
+                                        font-size: 40px;
+                                        text-align: center;
+
+                                    }
+                                    .stats-single-wrapper h4 {
+                                        text-align: center;
+                                        font-size: 20px;
+                                        font-weight: 400;
+                                        text-transform: uppercase;
+                                    }
+
+                                    #histPrizeContainer h2 {
+                                        text-align: center;
+                                    }
+
+                                    .startin {
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                        display: block;
+                                    }
+
+                                    #startTime .date {
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                        display: block;
+
+                                    }
+
+                                    #prizeTo, .prizeToIn, #prizeIn{
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                    }
+
+                                    #prizeIn{
+                                        font-weight: bold;
+                                        color: #f4acac;
+                                    }
+
+                                    .eth{
+                                        font-size: 18px;
+                                        font-weight: normal;
+                                    }
                                 </style>
-                                <div class="node nodeStatus widget widget-text">
-                                	<p>Start: <span id="startTime">???</span>
-                                	<p>Status: <span id="statusPending">Start in <span id="startTimeLeft">?:??:??</span></span><span id="statusActive">RUSH!!!</span>
-                                	<p id="curPrizeInfo">Candidate for prize <span id="prize">0</span> ETH: <span id="prizeTo">???</span> in <span id="prizeIn">???</span></p>
-                                    <p>Minimum deposit for a prize is <span id="prizeMinDep">0.03</span> ETH</p>
-                                	<div id="histPrizeContainer"><p id="histPrize"><span id="histPrizeTime">???</span>: prize <span id="histPrizeSum">0</span> ETH is received <span id="histPrizeAddr">???</span></p></div>
+                                <div class="container">
+                                    <div class="row" id="histPrizeContainer" >
+                                        <div class="col-sm-12">
+                                            <div class="sub-title">
+                                                <h2 data--duration=".7s" data--delay=".2s"><div>
+                                                    <p id="histPrize"><span id="histPrizeTime">???</span>: prize <span id="histPrizeSum">0</span> ETH is received <span id="histPrizeAddr">???</span></p>
+                                                </div></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".2s">
+                                                <h1><div id="startTime">...</div></h1>
+                                                <h4>Start time</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".5s">
+                                                <h1><div><span id="statusPending"><span class="startin">Start in</span><span id="startTimeLeft">?:??:??</span></span><span id="statusActive">RUSH!!!</span></div></h1>
+                                                <h4>Status</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item" >
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".3s" style="min-width: 200px">
+                                                <h1><div id="curPrizeInfo"><span id="prizeTo">???</span> <span class="prizeToIn">in</span> <span id="prizeIn">???</span>
+                                                    <span id="prize">0</span></div>
+                                                <div id="curPrizeInfoNoPrize">...</div></h1>
+                                                <h4>Candidate for prize</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3 stats-single-item">
+                                            <div class="stats-single-wrapper  " data--duration=".7s" data--delay=".4s">
+                                                <h1><div><span class="eth">ETH</span><div id="prizeMinDep">0.03</div></div></h1>
+                                                <h4>Min deposit for a prize</h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="node node24 widget widget-text">
                                     <div class="wrapper1">
@@ -5111,7 +5192,7 @@ But it is important to remember that for a deposit project growth the maximum de
                                                             <div class="node node48 widget widget-image">
                                                                 <div class="wrapper1">
                                                                     <div class="wrapper2">
-                                                                    	<input type="text" id="inputInvestments" oninput="calcInvestment(true)" placeholder="введите ETH адрес"/><br/>
+                                                                    	<input type="text" id="inputInvestments" oninput="calcInvestment(true)" placeholder="enter ETH address"/><br/>
                                                                          <p style="text-align: center;">
                                                                              <span style="font-size: 20px;">DEPOSITS ON AMOUNT: <big id="calcInvestmentValue">?</big> ETH</span>
                                                                          </p>
