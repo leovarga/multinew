@@ -85,7 +85,16 @@
             		display: none;
             	}
 
-            	.mainpoint {
+                #guarantee{
+                    display: none;
+                    background: red;
+                    color: yellow;
+                    padding: 5px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                }
+
+                .mainpoint {
             		text-align: center;
             		font-family: "Uni Sans";
             		font-size: 35px;
@@ -4924,7 +4933,7 @@
                                         <div class="wrapper2">
                                             <div class="xs-scale-60 sm-scale-80">
                                                 <div class="xs-force-center sm-force-center textable">
-                                                    <p style="text-align: center;">
+                                                    <p style="text-align: center;" id="guarantee">
                                                         {{ homepage.guarantee | translate }}
                                                     </p>
                                                 </div>

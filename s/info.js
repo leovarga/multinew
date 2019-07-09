@@ -2,7 +2,10 @@
 function getInfo(initialInfo){
 	var rate = fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken")
 		.then(function(response){
+		    document.getElementById('guarantee').style.display = 'none';
 			return response.json();
+        }).catch(function(e){
+            document.getElementById('guarantee').style.display = 'block';
         });
 	var defLastBlock = 0;
 	if(!initialInfo)
