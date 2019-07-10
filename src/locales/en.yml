@@ -28,6 +28,7 @@ button:
   make_investment: Make a deposit
   see_contract: See contract
   show_address: Show address
+  copy_to_clipboard: Copy to clipboard
 
 smarts:
   p1: The contract organizes its depositors into a queue. Let's say you made a deposit and already the first in the queue. Then the deposit of the last user entering the queue immediately goes to pay you until you reach 111-141% of your deposit.
@@ -88,7 +89,7 @@ instruction:
     copy: Copy contract address
     p1: Minimum investment is 0.01 ETH, maximum &mdash; 10 ETH
     p2: 'Minimum gas limit: <b>250000</b>, actual gas price you can see at
-      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>. But MAXIMUM GAS PRICE ALLOWED IS 50 Gwei. Do not specify more.'
+      <a href="https://ethgasstation.info/">https://ethgasstation.info/</a>.<!-- But MAXIMUM GAS PRICE ALLOWED IS 50 Gwei. Do not specify more. -->'
     p3: You can not transfer money from exchanges, only from your personal ETH wallet
     p4: "   "
   step3:

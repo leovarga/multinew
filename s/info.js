@@ -1,4 +1,5 @@
-﻿
+﻿var g_contractAddress = '0x77700c746fde1289b5cb12cdeb6d34c2e71e0777';
+
 function getInfo(initialInfo){
 	var rate = fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken")
 		.then(function(response){
@@ -9,11 +10,11 @@ function getInfo(initialInfo){
         });
 	var defLastBlock = 0;
 	if(!initialInfo)
-		initialInfo = {address: '0xdf17e8cc5d8020acb11af5178715cce6600d1c98', sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
-	if(!initialInfo.address) initialInfo.address = '0xdf17e8cc5d8020acb11af5178715cce6600d1c98';
+		initialInfo = {address: g_contractAddress.toLowerCase(), sum: 0, timesum: 0, num: 0, investors: {}, prizes: [], prizesMap: {}, dates: [], nums: [], sums: [], min: -1, max: 0};
+	if(!initialInfo.address) initialInfo.address = g_contractAddress.toLowerCase();
 	var txall = {};
 
-	var jsonInternalPromise = fetch("https://api-rinkeby.etherscan.io/api?module=account&action=txlistinternal&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlockInner || initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
+	var jsonInternalPromise = fetch("https://api.etherscan.io/api?module=account&action=txlistinternal&address=" + initialInfo.address + "&startblock=" + ((initialInfo.lastBlockInner || initialInfo.lastBlock || defLastBlock) + 1) + "&endblock=99999999&sort=asc&apikey=YourApiKeyToken")
 		.then(function(response){
 			return response.json();
 		}).then(function(json){
@@ -513,9 +514,9 @@ function onChangeLang(lang){
 }
 
 function getContractInstance(){
-	var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/metamask"));
+	var web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/b27e397f42eb4d3086eee37013dd952d"));
 	var abi = JSON.parse('[{"constant":false,"inputs":[{"name":"time","type":"uint256"},{"name":"_gasprice","type":"uint256"}],"name":"setStartTimeAndMaxGasPrice","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_tech","type":"address"},{"name":"_promo","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"constant":true,"inputs":[],"name":"currentQueueSize","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentReceiverIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"depositsMade","outputs":[{"name":"stage","type":"int128"},{"name":"count","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentCandidateForPrize","outputs":[{"name":"addr","type":"address"},{"name":"prize","type":"uint256"},{"name":"timeMade","type":"uint256"},{"name":"timeLeft","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentPrizeMinimalDeposit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"idx","type":"uint256"}],"name":"getDeposit","outputs":[{"name":"depositor","type":"address"},{"name":"deposit","type":"uint256"},{"name":"expect","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositorMultiplier","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDeposits","outputs":[{"name":"idxs","type":"uint256[]"},{"name":"deposits","type":"uint128[]"},{"name":"expects","type":"uint128[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"depositor","type":"address"}],"name":"getDepositsCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getQueueLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"lastDepositInfo","outputs":[{"name":"index","type":"uint128"},{"name":"time","type":"uint128"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_IDLE_TIME","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_INVESTMENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MAX_SET_TIME_RANGE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxGasPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MIN_INVESTMENT_FOR_PRIZE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PRIZE_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"prizeAmount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PROMO_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"stage","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"startTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TECH_PERCENT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]');
-	var address = '0xdf17e8cc5d8020acb11af5178715cce6600d1c98';
+	var address = g_contractAddress.toLowerCase();
 	var contractInstance = new web3.eth.Contract(abi, address);
 	contractInstance.web3 = web3;
 
@@ -532,6 +533,44 @@ function adjustTime(){
     	console.log("Difference: " + diff);
     	adjustTime.correction = Math.round(diff);
     });
+}
+
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+    if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+    });
+}
+
+function initKeyboard(){
+    var copyBobBtn = document.querySelector('.js-clipboard');
+
+    copyBobBtn.addEventListener('click', function(event) {
+        copyTextToClipboard(g_contractAddress);
+    });
+
 }
 
 function updateInfo(){
